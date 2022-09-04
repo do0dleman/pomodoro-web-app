@@ -1,0 +1,190 @@
+.sound-picker {
+    &__container {
+        width: 200px;
+        text-align: left;
+        @media (max-width: 768px) {
+            width: 250px;
+        }
+    }
+    &__button {
+        padding: 0;
+        width: 200px;
+        font-size: 20px;
+        cursor: pointer;
+        border: none;
+        background-color: transparent;
+        text-align: left;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 8px;
+        margin-bottom: 4px;
+        @media (max-width: 768px) {
+            width: 250px;
+            font-size: 24px;
+        }
+        span:nth-child(2) {
+            margin-top: 4px;
+            border-top: calc(2 * 6px * 0.866) solid #000;
+            border-right: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 6px solid transparent;
+            transform: translate(0, 25%);
+            transition: all 0.5s ease;
+        }
+    }
+    &__button-open {
+        span:nth-child(2) {
+            border-top: 6px solid transparent;
+            border-bottom: calc(2 * 6px * 0.866) solid #000;
+            transform: translate(0, -25%);
+        }
+    }
+    &__button-dark {
+        span {
+            color: rgb(218, 218, 218);
+        }
+        span:nth-child(2) {
+            border-top: calc(2 * 6px * 0.866) solid #fff;
+        }
+    }
+    &__button-open-dark {
+        span:nth-child(2) {
+            border-top: 6px solid transparent;
+            border-bottom: calc(2 * 6px * 0.866) solid #fff;
+            transform: translate(0, -25%);
+        }
+    }
+    &__wrapper {
+        overflow: hidden;
+        position: relative;
+        height: 0; 
+        transition: height 0.5s ease;
+    }
+    &__wrapper-open {
+        height: 182px;
+        @media (max-width: 768px) {
+            height: 212px
+        }
+    }
+    &__sound-list {
+        margin: 0;
+        padding: 0;
+    }
+    &__sound-item {
+        border-bottom: 2px solid rgb(218, 218, 218);
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        user-select: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        @media (max-width: 768px) {
+            font-size: 22px;
+        }
+        span {
+            width: 100%;
+            padding: 3px 4px;
+            transition: background-color 0.3s ease;
+            &:hover {
+                background-color: rgb(0, 0, 0, 0.05);
+            }
+            &:active {
+                background-color: rgb(0, 0, 0, 0.1);            
+            }
+            @media (max-width: 768px) {
+                &:hover {
+                    background-color: transparent;
+                }
+                &:active {
+                    background-color: transparent;
+                }
+            }
+        }
+        button {
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            background-color: rgb(236, 236, 236);
+            border: 2px solid rgb(38, 38, 38);
+            border-radius: 50%;
+            position: absolute;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            right: 4px;
+            @media (max-width: 768px) {
+                width: 24px;
+                height: 24px;
+            }
+            &:after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-3px, -50%);
+                border-left: calc(2 * 5px * 0.866) solid rgb(31, 31, 31);
+                border-right: 5px solid transparent;
+                border-top: 5px solid transparent;
+                border-bottom: 5px solid transparent;
+                z-index: 2;
+                border-radius: 1px;
+            }
+            &:hover {
+                transform: scale(110%);
+            }
+            &:active {
+                transform: scale(100%);
+            }
+        }
+        &:first-child {
+            border-top: 2px solid rgb(218, 218, 218);
+        }
+        &:hover {
+            background-color: rgb(0, 0, 0, 0.1);
+        }
+        @media (max-width: 768px) {
+            &:hover {
+                background-color: transparent;
+            }
+        }
+    }
+    &__sound-item-dark {
+        border-bottom: 2px solid rgb(82, 82, 82);
+        &:first-child {
+            border-top: 2px solid rgb(82, 82, 82);
+        }
+        span {
+            &:hover {
+                background-color: rgb(218, 218, 218, 0.03);
+            }
+            &:active {
+                background-color: rgb(218, 218, 218, 0.07);            
+            }
+            @media (max-width: 768px) {
+                &:hover {
+                    background-color: transparent;
+                }
+                &:active {
+                    background-color: transparent;
+                }
+            }
+        }
+        &:hover {
+            background-color: rgb(255, 255, 255, 0.02);
+        }
+        @media (max-width: 768px) {
+            &:hover {
+                background-color: transparent;
+            }
+        }
+        button {
+            border-color: rgb(236, 236, 236);
+            background-color: transparent;
+            &::after {
+                border-left: calc(2 * 5px * 0.866) solid rgb(236, 236, 236);
+            }
+        }
+    }
+}

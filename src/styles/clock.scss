@@ -1,0 +1,171 @@
+.clock {
+    width: 100%;
+    &__wrapper {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &__container {
+      margin: 40px auto 0;
+      width: 400px; 
+      height: 400px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      flex-direction: column;
+    }
+    &__bg-circle {
+      position: absolute;
+      content: '';
+      border-radius: 48%;
+      width: 400px;
+      height: 400px;
+      @media (max-height: 477px) or (max-width: 512px) {
+        width: 300px;
+        height: 300px;
+      }
+      z-index: -3;
+      animation: rotate linear 10s infinite;
+      &:nth-child(1) {
+        background-color: rgba(152, 60, 228, 0.784);
+        top: -30px;
+        left: -50px;
+        z-index: -1;
+        animation-delay: 1s;
+        @media (max-height: 477px) or (max-width: 512px) {
+          top: 20px;
+          left: 15px;
+        }
+      }
+      &:nth-child(2) {
+        background-color: rgba(36, 135, 255, 0.863);
+        bottom: -10px;
+        right: -40px;
+        z-index: -2;
+        animation-delay: 2s;
+        @media (max-height: 477px) or (max-width: 512px) {
+          bottom: 45px;
+          right: 10px;
+        }
+      }
+      &:nth-child(3) {
+        background-color: rgba(25, 0, 255, 0.778);
+        top: -55px;
+        @media (max-height: 477px) or (max-width: 512px) {
+          top: -10px;
+        }
+      }
+    }
+    &__bg-circle-dark {
+      &:nth-child(1) {
+        background-color: rgba(171, 61, 214, 0.784);
+      }
+      &:nth-child(2) {
+        background-color: rgba(30, 165, 255, 0.837);
+      }
+      &:nth-child(3) {
+        background-color: rgb(0, 55, 255);
+      }
+    }
+    &__time {
+      font-family: Signika Negative;
+      color: #fff;
+      font-size: 80px;
+      font-weight: 700;
+      position: relative;
+      margin-top: 90px;
+      @media (max-height: 477px) or (max-width: 512px) {
+        margin-top: 95px;
+        font-size: 64px;
+      }
+    }
+    &__state {
+      margin-top: -20px;
+      font-family: Signika Negative;
+      letter-spacing: 0.5px;
+      font-size: 24px;
+      color: #fff;
+      @media (max-height: 477px) or (max-width: 512px) {
+        font-size: 18px;
+      }
+    }
+    &__controls {
+      margin-top: 15px;
+      margin-bottom: 10px;
+      display: flex;
+    }
+    &__button {
+      background-color: transparent;
+      padding: 0px 11px;
+      border: 3px solid #fff;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease ;
+      display: flex;
+      align-items: center;
+      height: 50px;
+      @media (max-height: 477px) or (max-width: 512px) {
+        height: 42px;
+        padding: 0 8px;
+      }
+      
+      span {
+        font-family: Signika Negative;
+        color: #fff;
+        font-size: 28px;
+        @media (max-height: 477px) or (max-width: 512px) {
+          font-size: 20px;
+        }
+      }
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.123);
+      }
+      &:active {
+        background-color: rgba(0, 0, 0, 0.223);
+      }
+      svg {
+        width: 32px;
+        height: 32px;
+        fill: #fff;
+        @media (max-height: 477px) or (max-width: 512px) {
+          width: 24px;
+          height: 24px;
+        }
+      }
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
+    &__rounds {
+      @media (max-height: 477px) or (max-width: 512px) {
+        font-size: 18px;
+      }
+      font-size: 24px;
+      font-family: Signika Negative;
+      color: #fff;
+    }
+    &__button-inactive {
+      cursor: default;
+      border-color: rgba(224, 224, 224, 0.695);
+      svg {
+        fill: rgba(224, 224, 224, 0.695);
+      }
+      &:hover {
+        background-color: transparent;
+      }
+      &:active {
+        background-color: transparent;
+      }
+    }
+  }
+  
+  @keyframes rotate{
+    0% {
+      transform: rotate(0deg);
+      transition-property: linear;
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
