@@ -1,5 +1,6 @@
 {
-  "name": "test-app",
+  "homepage": "http://do0dleman.github.io/pomodoro-web-app",
+  "name": "pomodoro-web-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -42,6 +43,7 @@
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
+    "gh-pages": "^4.0.0",
     "path-browserify": "^1.0.1",
     "sass": "^1.54.5"
   }
