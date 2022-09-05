@@ -89,21 +89,24 @@ export function SoundPicker(props: soundPickerProps) {
     function handleButtonClick() {
         setButtonIsOpen(!buttonIsOpen)
     }
-    console.log(Array.from(sounds.keys()))
     return (
         <div className="sound-picker">
             <div className="sound-picker__container">
-                <button onClick={handleButtonClick} 
-                className={buttonClases.join(' ')}>
+                <button className={buttonClases.join(' ')}
+                    onClick={handleButtonClick} 
+                >
                     <span>Notification Sound</span> <span></span>
                 </button>
                 <div className={wrapperClasses.join(' ')}>
                     <ul className="sound-picker__sound-list"
                         onClick={handleListClick}
-                        ref={soundList}>
+                        ref={soundList}
+                    >
                         {Array.from(sounds.keys()).map(id => 
-                            <li className={soundItemClasses.join(' ')}>
-                                <span id={id}>{`${id.charAt(0).toUpperCase()}${id.slice(1)}`}</span>
+                            <li className={soundItemClasses.join(' ')} key={id}>
+                                <span id={id}>
+                                    {id.charAt(0).toUpperCase() + id.slice(1)}
+                                </span>
                                 <button></button>
                             </li>
                         )}

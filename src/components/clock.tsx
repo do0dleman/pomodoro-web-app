@@ -25,10 +25,12 @@ let isBreak: boolean = false // true - work | false - break
 let isOnTimeOut: boolean = false
 let breakCounter = 1
 export function Clock(props: ClockProps) {
+    const settings = props.settings
     let isDebug = false; // if is true set workTime to 0 and work sec to 2
 
     let isSkip: boolean = false
-    let clockMinStr: string = (props.settings.workTime > 10) ? `${props.settings.workTime}` : `0${props.settings.workTime}`
+    let clockMinStr: string = (settings.workTime > 10) ? 
+                            `${settings.workTime}` : `0${settings.workTime}`
     let clockSecStr: string = '00'
 
     const [clockValueStr, SetClockValueStr] = useState(`${clockMinStr}:${clockSecStr}`)
@@ -37,14 +39,14 @@ export function Clock(props: ClockProps) {
     const [showBreak, setShowBreak] = useState(isBreak)
     const [isRestartButtonActive, setIsRestartButtonActive] = useState(false)
 
-    const bgCircleDark = props.settings.isDark ? 'clock__bg-circle-dark' : ''
+    const bgCircleDark = settings.isDark ? 'clock__bg-circle-dark' : ''
     const bgCircleClases = ['clock__bg-circle', bgCircleDark]
     if (isInnit) {
-        workTimeMin = props.settings.workTime
+        workTimeMin = settings.workTime
         workTimeSec = 0
-        smallBreakTimeMin = props.settings.smallBreakTime
+        smallBreakTimeMin = settings.smallBreakTime
         smallBreakTimeSec = 0
-        bigBreakTimeMin = props.settings.bigBreakTime
+        bigBreakTimeMin = settings.bigBreakTime
         bigBreakTimeSec = 0
         isInnit = false
     }
@@ -58,7 +60,7 @@ export function Clock(props: ClockProps) {
     }, [clockValueStr])
     useEffect(() => {
         restartClock()
-    }, [props.settings])
+    }, [settings])
 
     
     let i = 0
@@ -67,7 +69,7 @@ export function Clock(props: ClockProps) {
             i = 0
             return
         }
-        let audio = new Audio(sounds.get(props.settings.sound))
+        let audio = new Audio(sounds.get(settings.sound))
         i++
         audio.play() 
         audio.onloadedmetadata = () => {
@@ -84,7 +86,7 @@ export function Clock(props: ClockProps) {
         if (!isClockActive || isOnTimeOut) return
         if (clockTime.min === 0 && clockTime.sec === 1) {
             if (isBreak) {
-                if (breakCounter !== props.settings.amountOfBreaks) {
+                if (breakCounter !== settings.amountOfBreaks) {
                     breakCounter++
                     setClockCurrentRound(breakCounter)
                 } else {
@@ -106,7 +108,7 @@ export function Clock(props: ClockProps) {
             setStringValues(workTimeMin, workTimeSec)
         }
         else if (isBreak) {
-            if (!(props.settings.amountOfBreaks === breakCounter)) {
+            if (!(settings.amountOfBreaks === breakCounter)) {
                 clockTime = calcClockTime(smallBreakTimeMin, smallBreakTimeSec)
                 smallBreakTimeMin = clockTime.min
                 smallBreakTimeSec = clockTime.sec
@@ -159,20 +161,19 @@ export function Clock(props: ClockProps) {
     }
     function restartClock() {
         if(!isBreak) {
-            clockTime.min = props.settings.workTime
+            clockTime.min = settings.workTime
         }
-        if(isBreak && props.settings.amountOfBreaks !== breakCounter) {
-            clockTime.min = props.settings.smallBreakTime
+        if(isBreak && settings.amountOfBreaks !== breakCounter) {
+            clockTime.min = settings.smallBreakTime
         }
-        if(isBreak && props.settings.amountOfBreaks === breakCounter) {
-            clockTime.min = props.settings.bigBreakTime
+        if(isBreak && settings.amountOfBreaks === breakCounter) {
+            clockTime.min = settings.bigBreakTime
         }
         clockTime.sec = 0
-        clockMinStr = (clockTime.min > 10) ? `${clockTime.min}` : `0${clockTime.min}`
-        clockSecStr = (clockTime.sec > 10) ? `${clockTime.sec}` : `0${clockTime.sec}`
+        clockMinStr = (clockTime.min > 9) ? `${clockTime.min}` : `0${clockTime.min}`
+        clockSecStr = (clockTime.sec > 9) ? `${clockTime.sec}` : `0${clockTime.sec}`
         setIsRestartButtonActive(false)
         isClockActive = false
-        // isBreak = false
         isInnit = true
         SetClockValueStr(`${clockMinStr}:${clockSecStr}`)
         setClockCurrentRound(breakCounter)
@@ -185,13 +186,21 @@ export function Clock(props: ClockProps) {
                     <div className={bgCircleClases.join(' ')}></div>
                     <div className={bgCircleClases.join(' ')}></div>
                     <div className={bgCircleClases.join(' ')}></div>
-                    <span className="clock__time">{clockValueStr}</span>
-                    <span className='clock__state'>{showBreak ? "Break" : "Work"}</span>
+                    <span className="clock__time">
+                        {clockValueStr}
+                    </span>
+                    <span className='clock__state'>
+                        {showBreak ? "Break" : "Work"}
+                    </span>
                     <div className="clock__controls">
                         <button
-                            className={`clock__button ${isRestartButtonActive ? '' : 'clock__button-inactive'}`}
-                            onClick={restartClock}>
-                            <svg version="1.1" width={SVGsize} height={SVGsize} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 297 297">
+                        className={`clock__button ${isRestartButtonActive ? 
+                        '' : 'clock__button-inactive'}`}
+                        onClick={restartClock}
+                        >
+                            <svg version="1.1" width={SVGsize} height={SVGsize} 
+                            xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" 
+                            viewBox="0 0 297 297">
                                 <path d="M296.252,144.737c-1.522-3.674-5.108-6.071-9.086-6.071h-30.432c-5.041-66.306-60.606-118.719-128.18-118.719
                             C57.669,19.947,0,77.616,0,148.501s57.669,128.553,128.554,128.553c5.431,0,9.834-4.403,9.834-9.834V222.7
                             c0-5.431-4.403-9.834-9.834-9.834c-35.49,0-64.365-28.874-64.365-64.365c0-35.491,28.874-64.365,64.365-64.365
@@ -203,12 +212,17 @@ export function Clock(props: ClockProps) {
                             L223.721,198.038z"/>
                             </svg>
                         </button>
-                        <button className="clock__button" onClick={setClockActive}>
-                            <span>{buttonState ? "Pause" : "Start"}</span>
+                        <button className="clock__button"
+                        onClick={setClockActive}
+                        >
+                            <span>
+                                {buttonState ? "Pause" : "Start"}
+                            </span>
                         </button>
                         <button
-                            className="clock__button"
-                            onClick={skipStage}>
+                        className="clock__button"
+                        onClick={skipStage}
+                        >
                             <svg version="1.1" id="designs" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                                 width={SVGsize} height={SVGsize} viewBox="0 0 32 32">
                                 <path d="M29.998,16.648c0.004-0.073,0.002-0.143-0.015-0.213c-0.004-0.024,0.001-0.048-0.005-0.071
@@ -249,7 +263,9 @@ export function Clock(props: ClockProps) {
                             </svg>
                         </button>
                     </div>
-                    <span className="clock__rounds">{`${clockCurrentRound}/${props.settings.amountOfBreaks} Round`}</span>
+                    <span className="clock__rounds">
+                        {`${clockCurrentRound}/${props.settings.amountOfBreaks} Round`}
+                    </span>
                 </div>
             </div>
         </div >

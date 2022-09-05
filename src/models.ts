@@ -6,3 +6,10 @@ export interface ISettings {
     isDark: boolean,
     sound: string
 }
+export interface ISettingsBlockParams {
+    minValue: number,
+    maxValue: number, 
+    name: string,
+    measure: string,
+    label: string,
+}

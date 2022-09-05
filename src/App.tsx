@@ -12,11 +12,15 @@ const defaultSettings: ISettings = {
   sound: 'bell'
 }
 function App() {
-  const [settings, setSettings] = useState(JSON.parse(localStorage.getItem('settings') || JSON.stringify(defaultSettings)))
+  const [settings, setSettings] = useState(
+    JSON.parse(localStorage.getItem('settings') || 
+    JSON.stringify(defaultSettings))
+    )
   useEffect(() => {
     if (settings.isDark) document.body.classList.add("dark")
     if (!settings.isDark) document.body.classList.remove("dark")
     
+    console.log('22')
     localStorage.setItem('settings', JSON.stringify(settings))
   }, [settings])
   function loadSettings(settings: ISettings) {
