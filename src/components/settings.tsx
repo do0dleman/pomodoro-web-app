@@ -21,18 +21,14 @@ export function Settings(props: ISettingsProps) {
     useEffect(() => {
         props.sendSettings(settingsValue)
     }, [settingsValue])
+    console.log("setitings:")
+    console.log(settingsValue)
     const cotainerActive = isSettingsOpen ? 'settings__container-active' : ''
     const containerDark = settingsValue.isDark ? "settings__container-dark" : ""
     const containerClases = [
         "settings__container",
         containerDark,
         cotainerActive
-    ]
-
-    const rangeDark = settingsValue.isDark ? "settings__range-dark" : ""
-    const rangeClases = [
-        'settings__range',
-        rangeDark
     ]
 
     const openButtonState = isSettingsOpen ? 'settings__open-button-active' :
@@ -51,19 +47,9 @@ export function Settings(props: ISettingsProps) {
         "settings__theme-button",
         themeButtonDark
     ]
-    function handleChange(event: any) {
-        const name = event.target.name
-        const value = event.target.value
-        setSettingsValue((prev) => {
-            const settings = {
-                ...prev,
-                [name]: Number(value)
-            }
-            return settings
-        })
-    }
     function changeTheme() {
         setSettingsValue((prev) => {
+            console.log(prev)
             const settings = {
                 ...prev,
                 ['isDark']: !settingsValue.isDark
@@ -74,6 +60,10 @@ export function Settings(props: ISettingsProps) {
     function handleOpenbuttonClick() {
         isStart = false
         setIsSettingsOpen(!isSettingsOpen)
+    }
+    function loadSettings(settings: ISettings) {
+        setSettingsValue(settings)
+        props.sendSettings(settings)
     }
     return (
         <div className={`settings`}>
@@ -86,7 +76,7 @@ export function Settings(props: ISettingsProps) {
                 <div className="settings__block">
                     <SettingsBlock
                         settings={settingsValue}
-                        sendSettings={props.sendSettings}
+                        sendSettings={loadSettings}
                         blockParams={{
                             minValue: 1,
                             maxValue: 60,
@@ -99,7 +89,7 @@ export function Settings(props: ISettingsProps) {
                 <div className="settings__block">
                     <SettingsBlock
                         settings={settingsValue}
-                        sendSettings={props.sendSettings}
+                        sendSettings={loadSettings}
                         blockParams={{
                             minValue: 1,
                             maxValue: 30,
@@ -112,7 +102,7 @@ export function Settings(props: ISettingsProps) {
                 <div className="settings__block">
                     <SettingsBlock
                         settings={settingsValue}
-                        sendSettings={props.sendSettings}
+                        sendSettings={loadSettings}
                         blockParams={{
                             minValue: 1,
                             maxValue: 45,
@@ -125,12 +115,12 @@ export function Settings(props: ISettingsProps) {
                 <div className="settings__block">
                     <SettingsBlock
                         settings={settingsValue}
-                        sendSettings={props.sendSettings}
+                        sendSettings={loadSettings}
                         blockParams={{
                             minValue: 2,
                             maxValue: 8,
                             name: 'amountOfBreaks',
-                            measure: 'rounds',
+                            measure: '',
                             label: 'Rounds'
                         }}
                     />

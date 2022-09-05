@@ -74,7 +74,8 @@ export function SoundPicker(props: soundPickerProps) {
             playSound(sound)
             return
         }
-        let settings: ISettings = JSON.parse(localStorage.getItem('settings') || JSON.stringify({
+        let settings: ISettings = JSON.parse(
+        localStorage.getItem('settings') || JSON.stringify({
             workTime: 25,
             smallBreakTime: 5,
             bigBreakTime: 15,

@@ -16,18 +16,25 @@ export function SettingsBlock(props: settingBlockProps) {
         console.log(settingsValue)
     }, [settingsValue])
 
-    const rangeDark = settingsValue.isDark ? "settings__range-dark" : ""
+    const rangeDark = props.settings.isDark ? "settings__range-dark" : ""
     const rangeClases = [
         'settings__range',
         rangeDark
     ]
     function handleChange(event: any) {
-        const name = event.target.name
         const value = event.target.value
-        setSettingsValue((prev) => {
-            const settings = {
-                ...prev,
-                [name]: Number(value)
+        setSettingsValue(() => {
+            let settings: ISettings = JSON.parse(
+                localStorage.getItem('settings') || JSON.stringify({
+                    workTime: 25,
+                    smallBreakTime: 5,
+                    bigBreakTime: 15,
+                    amountOfBreaks: 4,
+                    isDark: false,
+                }))
+            settings = {
+                ...settings,
+                [name]: +value
             }
             return settings
         })
