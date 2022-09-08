@@ -131,12 +131,6 @@
                 z-index: 2;
                 border-radius: 1px;
             }
-            &:hover {
-                transform: scale(110%);
-            }
-            &:active {
-                transform: scale(100%);
-            }
         }
         &:first-child {
             border-top: 2px solid rgb(218, 218, 218);

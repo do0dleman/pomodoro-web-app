@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ISettings } from '../models'
 import { sounds } from '../maps/soundMap'
+import {showNotification} from '../functions/notification'
 
 type ClockTime = {
     min: number
@@ -26,7 +27,7 @@ let isOnTimeOut: boolean = false
 let breakCounter = 1
 export function Clock(props: ClockProps) {
     const settings = props.settings
-    let isDebug = false; // if is true set workTime to 0 and work sec to 2
+    let isDebug = false; // if is true set workTime and smallBreakTime to 0 and work sec to 2
 
     let isSkip: boolean = false
     let clockMinStr: string = (settings.workTime > 10) ? 
@@ -53,6 +54,8 @@ export function Clock(props: ClockProps) {
     if (isDebug) {
         workTimeMin = 0
         workTimeSec = 2
+        smallBreakTimeMin = 0
+        smallBreakTimeSec = 2
     }
 
     useEffect(() => {
@@ -94,6 +97,8 @@ export function Clock(props: ClockProps) {
                     setClockCurrentRound(breakCounter)
                 }
             }
+            let title = isBreak ? 'Time to work!' : 'Time to rest!'
+            showNotification(title, '', isBreak)
             isBreak = !isBreak
             setShowBreak(isBreak)
             isInnit = true

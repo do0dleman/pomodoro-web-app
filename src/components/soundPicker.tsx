@@ -27,7 +27,6 @@ function playSound(sound: string) {
                 isSoundPlaying = false
                 playSound(soundValue)
             }, audio.duration * 1000 + 100)
-            console.log(typeof(replaySoundTimeout))
         }
     }
 }
@@ -69,9 +68,12 @@ export function SoundPicker(props: soundPickerProps) {
     }, [])
     function handleListClick(e: any) {
         if(e.target.tagName === 'BUTTON') {
+            console.log(e)
             const soundId = e.target.previousElementSibling.id
             const sound = sounds.get(soundId)
             playSound(sound)
+            // console.log(e.target)
+            e.target.style.transform = "scale(110%)"
             return
         }
         let settings: ISettings = JSON.parse(
@@ -87,6 +89,11 @@ export function SoundPicker(props: soundPickerProps) {
         props.sendSettings(settings)
         setChosenDecoration(settings)
     }
+    function handleMouseUp(e: any) {
+        if(e.target.tagName === 'BUTTON') {
+            e.target.style.transform = "scale(100%)"
+        }
+    }
     function handleButtonClick() {
         setButtonIsOpen(!buttonIsOpen)
     }
@@ -100,7 +107,8 @@ export function SoundPicker(props: soundPickerProps) {
                 </button>
                 <div className={wrapperClasses.join(' ')}>
                     <ul className="sound-picker__sound-list"
-                        onClick={handleListClick}
+                        onMouseDown={handleListClick}
+                        onMouseUp={handleMouseUp}
                         ref={soundList}
                     >
                         {Array.from(sounds.keys()).map(id => 

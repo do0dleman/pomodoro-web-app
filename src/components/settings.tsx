@@ -21,8 +21,6 @@ export function Settings(props: ISettingsProps) {
     useEffect(() => {
         props.sendSettings(settingsValue)
     }, [settingsValue])
-    console.log("setitings:")
-    console.log(settingsValue)
     const cotainerActive = isSettingsOpen ? 'settings__container-active' : ''
     const containerDark = settingsValue.isDark ? "settings__container-dark" : ""
     const containerClases = [
@@ -31,8 +29,8 @@ export function Settings(props: ISettingsProps) {
         cotainerActive
     ]
 
-    const openButtonState = isSettingsOpen ? 'settings__open-button-active' :
-        'settings__open-button-inactive'
+    const openButtonState = isSettingsOpen ? 
+    'settings__open-button-active' : 'settings__open-button-inactive'
     const openButtonDark = settingsValue.isDark ? 'settings__open-button-dark' : ''
     const openButtonStart = isStart ? 'settings__open-button-on-start' : ''
     const openButtonClases = [
@@ -49,7 +47,6 @@ export function Settings(props: ISettingsProps) {
     ]
     function changeTheme() {
         setSettingsValue((prev) => {
-            console.log(prev)
             const settings = {
                 ...prev,
                 ['isDark']: !settingsValue.isDark

@@ -13,7 +13,6 @@ export function SettingsBlock(props: settingBlockProps) {
     const [settingsValue, setSettingsValue] = useState(props.settings)
     useEffect(() => {
         props.sendSettings(settingsValue)
-        console.log(settingsValue)
     }, [settingsValue])
 
     const rangeDark = props.settings.isDark ? "settings__range-dark" : ""

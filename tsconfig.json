@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "typeRoots" : ["src/typesmodules/@types", "types"],
+    "target": "es6",
     "lib": [
       "dom",
       "dom.iterable",
@@ -18,11 +19,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
   },
   "include": [
     "src/*",
     "src/maps/*",
-    "types"
+    "src/types/asset.d.ts",
+    "src/types/jpg.d.ts",
+    "src/types/png.d.ts"
   ]
 }

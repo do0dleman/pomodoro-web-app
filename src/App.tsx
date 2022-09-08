@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Clock } from "./components/clock";
 import { Settings } from "./components/settings";
 import { ISettings } from "./models";
+import {requestNotificationPermission} from './functions/notification'
 
 const defaultSettings: ISettings = {
   workTime: 25,
@@ -20,14 +21,14 @@ function App() {
     if (settingsValue.isDark) document.body.classList.add("dark")
     if (!settingsValue.isDark) document.body.classList.remove("dark")
     
-    console.log('22')
     localStorage.setItem('settings', JSON.stringify(settingsValue))
   }, [settingsValue])
   function loadSettings(settings: ISettings) {
     setSettings(settings)
-    console.log('app: ')
-    console.log(settings)
   }
+  useEffect(() => {
+    requestNotificationPermission()
+  }, [])
   return (
     <div className={`App`}>
       <Settings sendSettings={loadSettings} />
