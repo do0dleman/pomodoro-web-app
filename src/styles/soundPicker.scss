@@ -7,7 +7,6 @@
         }
     }
     &__button {
-        padding: 0;
         width: 200px;
         font-size: 20px;
         cursor: pointer;
@@ -17,7 +16,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-right: 8px;
+        padding: 0 8px 0 4px;
         margin-bottom: 4px;
         @media (max-width: 768px) {
             width: 250px;
@@ -144,6 +143,7 @@
             }
         }
     }
+    
     &__sound-item-dark {
         border-bottom: 2px solid rgb(82, 82, 82);
         &:first-child {
@@ -178,6 +178,28 @@
             background-color: transparent;
             &::after {
                 border-left: calc(2 * 5px * 0.866) solid rgb(236, 236, 236);
+            }
+        }
+    }
+    &__sound-item-active-dark {
+        button {
+            &:after {
+                border-left: 4px solid rgb(236, 236, 236);
+                border-right: 4px solid rgb(236, 236, 236);
+                border-top: 4px solid rgb(236, 236, 236);
+                border-bottom: 4px solid rgb(236, 236, 236);
+                transform: translate(-50%, -50%);
+            }
+        }
+    }
+    &__sound-item-active {
+        button {
+            &::after {
+                border-left: 4px solid rgb(31, 31, 31);
+                border-right: 4px solid rgb(31, 31, 31);
+                border-top: 4px solid rgb(31, 31, 31);
+                border-bottom: 4px solid rgb(31, 31, 31);
+                transform: translate(-50%, -50%);
             }
         }
     }

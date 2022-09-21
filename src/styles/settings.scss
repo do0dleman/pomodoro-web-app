@@ -112,6 +112,9 @@ input[type=range]::-ms-track {
     }
     &__range {
         position: relative;
+        display: flex;
+        align-items: center;
+        height: 17.333px;
         &::before,  &::after  {
             position: absolute;
             top: 24px;
@@ -132,6 +135,7 @@ input[type=range]::-ms-track {
             }
             &::-moz-range-thumb {
                 position: relative;
+                z-index: 1;
                 width: 8px;
                 height: 8px;
                 border-radius: 50%;
@@ -139,9 +143,11 @@ input[type=range]::-ms-track {
                 border: 1px solid rgb(152, 60, 228);
                 box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
                 transition: all 0.07s ease-in;
+                opacity: 1;
             }
             &::-webkit-slider-thumb {
                 position: relative;
+                z-index: 1;
                 width: 8px;
                 height: 8px;
                 border-radius: 50%;
@@ -158,14 +164,14 @@ input[type=range]::-ms-track {
             }
             &::-webkit-slider-runnable-track {
                 height: 4px;
-                background-color: rgb(152, 60, 228);
+                background-color: rgb(173, 172, 172);
                 border-radius: 2px;
             }
-            &::-moz-range-progress {
-                height: 4px;
-                background-color: rgb(152, 60, 228);
-                border-radius: 2px;
-            }
+            // &::-moz-range-progress {
+            //     height: 4px;
+            //     background-color: rgb(152, 60, 228);
+            //     border-radius: 2px;
+            // }
             &:hover {
                 &::-moz-range-thumb {
                     box-shadow: 0px 0px 6px 0px rgba(152, 60, 228,0.75);
@@ -194,10 +200,23 @@ input[type=range]::-ms-track {
             &::-moz-range-track {
                 background-color: rgb(80, 80, 80);
             }
+            &::-webkit-slider-runnable-track {
+                background-color: rgb(80, 80, 80);
+            }
         }
+    }
+    &__range-progress {
+        width: 20%;
+        height: 4px;
+        position: absolute;
+        content: '';
+        background-color: rgb(152, 60, 228);
+        z-index: 0;
+        border-radius: 2px;
     }
     &__curent-value {
         font-size: 16px;
+        margin-top: 4px;
     }
     &__button-container {
         position: relative;

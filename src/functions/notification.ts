@@ -14,8 +14,8 @@ export function showNotification(title: string, body: string, isBreak: boolean) 
     if(permision === 'default' || permision === 'denied') return
 
     let icon
-    if(!isBreak) icon = restImg
-    if(isBreak) icon = workImg
+    if(isBreak) icon = restImg
+    if(!isBreak) icon = workImg
     let notification = new Notification(title, {body, icon})
     notification.onclick = () => {
         notification.close();

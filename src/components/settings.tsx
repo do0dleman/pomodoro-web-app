@@ -125,7 +125,7 @@ export function Settings(props: ISettingsProps) {
                 <div className="settings__block">
                     <SoundPicker
                         settings={settingsValue}
-                        sendSettings={props.sendSettings}
+                        sendSettings={loadSettings}
                     />
                 </div>
                 <div className="settings__block">

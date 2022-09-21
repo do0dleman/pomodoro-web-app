@@ -1,35 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { sounds } from "../maps/soundMap"
 import { ISettings } from "../models"
-
-let isSoundPlaying: boolean = false
-let i = 0
-let soundValue = sounds.get('bell')
-let replaySoundTimeout: ReturnType<typeof setTimeout>
-function playSound(sound: string) { 
-    soundValue = sound
-    if(i === 3) {
-        i = 0
-        return
-    }
-    if(isSoundPlaying) {
-        clearTimeout(replaySoundTimeout)
-        isSoundPlaying = false
-        i = 0
-    }
-    if(!isSoundPlaying) {
-        i++
-        let audio = new Audio(soundValue)
-        audio.play() 
-        audio.onloadedmetadata = (e) => {
-            isSoundPlaying = true
-            replaySoundTimeout = setTimeout( () => {
-                isSoundPlaying = false
-                playSound(soundValue)
-            }, audio.duration * 1000 + 100)
-        }
-    }
-}
+import { SoundPickerItem } from "./soundPickerItem"
 
 interface soundPickerProps {
     sendSettings: Function
@@ -41,16 +13,13 @@ export function SoundPicker(props: soundPickerProps) {
 
     const buttonDark = props.settings.isDark ? "sound-picker__button-dark" : ""
     let buttonOpen = buttonIsOpen ? 'sound-picker__button-open' : ''
-    if(props.settings.isDark) buttonOpen += '-dark'
+    if(props.settings.isDark && buttonOpen) buttonOpen += '-dark'
     const buttonClases = ["sound-picker__button", buttonDark, buttonOpen]
 
     const wrapperOpen = buttonIsOpen ? 'sound-picker__wrapper-open' : ''
     const wrapperClasses = ['sound-picker__wrapper', wrapperOpen]
 
     const soundList = useRef<HTMLUListElement>(null)
-
-    const soundItemDark = props.settings.isDark ? 'sound-picker__sound-item-dark' : ''
-    const soundItemClasses = ['sound-picker__sound-item', soundItemDark]
 
     function setChosenDecoration(settings: ISettings = props.settings) {
         const soundItems = Array.from(soundList.current!.children as HTMLCollectionOf<HTMLElement>)
@@ -64,36 +33,10 @@ export function SoundPicker(props: soundPickerProps) {
         });
     }
     useEffect(() => {
-        setChosenDecoration()
-    }, [])
-    function handleListClick(e: any) {
-        if(e.target.tagName === 'BUTTON') {
-            console.log(e)
-            const soundId = e.target.previousElementSibling.id
-            const sound = sounds.get(soundId)
-            playSound(sound)
-            // console.log(e.target)
-            e.target.style.transform = "scale(110%)"
-            return
-        }
-        let settings: ISettings = JSON.parse(
-        localStorage.getItem('settings') || JSON.stringify({
-            workTime: 25,
-            smallBreakTime: 5,
-            bigBreakTime: 15,
-            amountOfBreaks: 4,
-            isDark: false,
-        }))
-        const soundId = e.target.id
-        settings.sound = soundId
-        props.sendSettings(settings)
-        setChosenDecoration(settings)
-    }
-    function handleMouseUp(e: any) {
-        if(e.target.tagName === 'BUTTON') {
-            e.target.style.transform = "scale(100%)"
-        }
-    }
+        console.log(props.settings)
+        setChosenDecoration(props.settings)
+    })
+    
     function handleButtonClick() {
         setButtonIsOpen(!buttonIsOpen)
     }
@@ -107,17 +50,15 @@ export function SoundPicker(props: soundPickerProps) {
                 </button>
                 <div className={wrapperClasses.join(' ')}>
                     <ul className="sound-picker__sound-list"
-                        onMouseDown={handleListClick}
-                        onMouseUp={handleMouseUp}
                         ref={soundList}
                     >
                         {Array.from(sounds.keys()).map(id => 
-                            <li className={soundItemClasses.join(' ')} key={id}>
-                                <span id={id}>
-                                    {id.charAt(0).toUpperCase() + id.slice(1)}
-                                </span>
-                                <button></button>
-                            </li>
+                            <SoundPickerItem 
+                                key={id}
+                                id={id}
+                                settings={props.settings}
+                                sendSettings={props.sendSettings}
+                            />
                         )}
                     </ul>
                 </div>

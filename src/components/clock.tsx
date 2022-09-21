@@ -97,12 +97,14 @@ export function Clock(props: ClockProps) {
                     setClockCurrentRound(breakCounter)
                 }
             }
-            let title = isBreak ? 'Time to work!' : 'Time to rest!'
-            showNotification(title, '', isBreak)
             isBreak = !isBreak
             setShowBreak(isBreak)
             isInnit = true
             setClockActive()
+            if (!isSkip) {
+                let title = isBreak ? 'Time to rest!' : 'Time to work!' 
+                showNotification(title, '', isBreak)
+            }
             if (!isSkip) playSound()
             isSkip = false
         }
