@@ -3,7 +3,6 @@ import { Clock } from "./components/clock";
 import { Settings } from "./components/settings";
 import { ISettings } from "./models";
 import {requestNotificationPermission} from './functions/notification'
-import './context/settingsContext'
 
 const defaultSettings: ISettings = {
   workTime: 25,
